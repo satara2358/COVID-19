@@ -1,4 +1,3 @@
-
 # from dash import Dash, html, dcc
 # import dash_html_components as html
 # import dash_bootstrap_components as dbc
@@ -33,13 +32,14 @@ CENTER_LAT, CENTER_LON = -14.272572694355336, -51.25567404158474
 # df_brasil.to_csv("df_brasil.csv")
 
 # =====================================================================
-# Data Load
-df_states = pd.read_csv("df_states.csv")
+# Cargar datos
+df_states = pd.read_csv("df_states.csv") 
 df_brasil = pd.read_csv("df_brasil.csv")
 
 token = open(".mapbox_token").read()
 brazil_states = json.load(open("geojson/brazil_geo.json", "r"))
 
+# llaves de los diccionarios
 brazil_states["features"][0].keys()
 
 df_states_ = df_states[df_states["data"] == "2020-05-13"]
@@ -51,13 +51,18 @@ select_columns = {"casosAcumulado": "Casos Acumulados",
 
 # =====================================================================
 # app = dash.Dash(__name__, external_stylesheets=[dbc.themes.CYBORG])
-app = Dash(external_stylesheets=[dbc.themes.BOOTSTRAP])
+app = Dash(external_stylesheets=[dbc.themes.CYBORG])
 
 
-fig = px.choropleth_mapbox(df_states_, locations="estado",
-    geojson=brazil_states, center={"lat": -16.95, "lon": -47.78},  # https://www.google.com/maps/ -> right click -> get lat/lon
-    zoom=4, color="casosNovos", color_continuous_scale="Redor", opacity=0.4,
-    hover_data={"casosAcumulado": True, "casosNovos": True, "obitosNovos": True, "estado": True}
+fig = px.choropleth_mapbox(df_states_, 
+                           locations="estado",
+                           geojson=brazil_states, 
+                           center={"lat": -16.95, "lon": -47.78},  # https://www.google.com/maps/ -> right click -> get lat/lon
+                           zoom=4, 
+                           color="casosNovos", 
+                           color_continuous_scale="Redor", 
+                           opacity=0.4,
+                           hover_data={"casosAcumulado": True, "casosNovos": True, "obitosNovos": True, "estado": True}
     )
 fig.update_layout(
                 # mapbox_accesstoken=token,
