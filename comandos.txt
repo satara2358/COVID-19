@@ -3,3 +3,6 @@
 -> pip install dash-bootstrap-components
 experimental -> pip install "dash-bootstrap-components<1"
 
+-> conda env list
+-> conda activate data || base || DCSV
+
